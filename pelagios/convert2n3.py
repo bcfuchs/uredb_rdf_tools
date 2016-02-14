@@ -20,7 +20,8 @@ record = '''
 .
 '''
 uredata = []
-with open("ure_1.tsv",'rU') as tsv:
+file = "data/ure_1.tsv"
+with open(file,'rU') as tsv:
       i = 0;
       for line in csv.reader(tsv, delimiter="\t"):
           if (i > 0 ):
@@ -35,12 +36,12 @@ print preface
 
 for d in uredata: 
     accnum,title,description = "","",""
-    accnum = d[0]
+    accnum = d[0].replace(' ','%20')
 
     if (len(d) > 1):
-        title = d[1].replace('\n', ' ').replace('\r', '')
+        title = d[1].replace('\n', ' ').replace('\r', '').replace('\\','')
     if (len(d) > 2):
-        description = d[2].replace('\n', ' ').replace('\r', ' ')
+        description = d[2].replace('\n', ' ').replace('\r', ' ').replace('\\"','').replace('\\','')
     print fillInRecord(rec,title,description,accnum)
     
 
