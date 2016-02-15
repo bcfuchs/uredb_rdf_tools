@@ -7,3 +7,5 @@ To re-run,
    ```sh
    sh run.sh
    ```
+
+You may need to install rdflib
