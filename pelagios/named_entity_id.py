@@ -94,18 +94,22 @@ def checkPleiades(data,names,surrogates):
     out =[]
     for item in data:
         for token in item:
+            rec = item[token]
             if token in surrogates:
                 sur = surrogates[token]
                 if sur in names:
-                    print names[sur]
-                    out.append([id,token,sur,names[sur])
 
-        
+                    out.append([rec,token,sur,names[sur]])
+
+    return out
     pass
 def makeSurrogates(entBundle):
     pass
 ents = makeEntityBundle(data,'fabric')
 surrogates = getSurrogates(surrogatefile);
 #print surrogates
-checkPleiades(ents,pleiad,surrogates)
+checked = checkPleiades(ents,pleiad,surrogates)
 
+print  "record,token,surrogate,guid"
+for c in checked:
+    print c[0] + "," + c[1] + "," + c[2] + "," + c[3] 
