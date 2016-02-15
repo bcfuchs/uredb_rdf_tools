@@ -13,7 +13,10 @@ output a list of matches as csv for use with convert2n3.py
 '''
 
 namesfile = "data/pleiades/pleiades-names-latest.csv"
-datafile = "data/private/ure_1_long.tsv"
+
+# uredb dump
+datafile = "data/ure_1_fabric.tsv"
+# hand-edited surrogate file
 surrogatefile = "data/fabric_names.csv"
 
 
@@ -57,6 +60,7 @@ def getNames(namesfile):
 # make a list from names found in a uredb field
 # <- data=uredb data from tsv; field=uredb field
 # -> [name1,name2,...]    sorted+uniqued
+
 def makeEntityList(data,field):
     names = []
     for d in data:
@@ -112,8 +116,8 @@ def checkPleiades(data,names,surrogates):
     pass
 
 pleiad = getNames(namesfile);
-data = getData(datafile);
-ents = makeEntityBundle(data,'fabric')
+uredata = getData(datafile);
+ents = makeEntityBundle(uredata,'fabric')
 surrogates = getSurrogates(surrogatefile);
 
 checked = checkPleiades(ents,pleiad,surrogates)
