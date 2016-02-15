@@ -1,5 +1,9 @@
 from string import Template
 import csv
+'''
+Generate n3 files for uredb
+
+'''
 
 preface = '''
 @prefix cnt: <http://www.w3.org/2011/content#> . 
@@ -20,8 +24,10 @@ record = '''
 .
 '''
 uredata = []
-file = "data/ure_1.tsv"
-with open(file,'rU') as tsv:
+
+datafile = "data/ure_1.tsv"
+
+with open(datafile,'rU') as tsv:
       i = 0;
       for line in csv.reader(tsv, delimiter="\t"):
           if (i > 0 ):
