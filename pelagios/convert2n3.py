@@ -101,14 +101,3 @@ for d in uredata:
 
 
 
-
-'''
-
-<http://edh-www.adw.uni-heidelberg.de/edh.inscriptions.n3#HD057360> a pelagios:AnnotatedThing ;
- dcterms:title "Inscription of Andros (modern Andros) HD057360" ;
- dcterms:identifier <http://edh-www.adw.uni-heidelberg.de/edh/inschrift/HD057360> ;
- foaf:homepage <http://edh-www.adw.uni-heidelberg.de/edh/inschrift/HD057360> ;
- dcterms:temporal "-99/-70" ;
- dcterms:language "lat" ;
-
-'''
