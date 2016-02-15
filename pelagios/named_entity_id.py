@@ -7,14 +7,17 @@ Extract names from uredb
 Make lists for editing
 
 match with pleiades names
-
+output a list of matches as csv for use with convert2n3.py
 
 
 '''
 
 namesfile = "data/pleiades/pleiades-names-latest.csv"
-datafile = "data/ure_1_long.tsv"
+datafile = "data/private/ure_1_long.tsv"
 surrogatefile = "data/fabric_names.csv"
+
+
+# <- uredb tsv dump
 def getData(datafile):
     out = []
     with open(datafile,'rU') as tsv:
@@ -23,7 +26,8 @@ def getData(datafile):
             out.append(row);
     return out 
 
-
+# <- surrogates csv 
+# -> { fabric_token:surrogate,...}
 def getSurrogates(surrogateFile):
     out = {}
     with open(surrogateFile) as csvfile:
@@ -32,24 +36,27 @@ def getSurrogates(surrogateFile):
             out[row['fabric']] = row['place']
     return out
 
+# <- pleiades names dump csv
+# -> {Pleiades name:pleides pid,...}
 def getNames(namesfile):
     pleiad = {}
     with open(namesfile) as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
             title = row['title']
-            uid = row['uid']
-            pleiad[title] =  uid
+            pid = row['pid']
+            if (title == 'Attica'):
+
+                pid = '579888'
+            pleiad[title] =  pid
     return pleiad
 
 
 
-pleiad = getNames(namesfile);
-data = getData(datafile);
 
-
-# make a list from field names
-
+# make a list from names found in a uredb field
+# <- data=uredb data from tsv; field=uredb field
+# -> [name1,name2,...]    sorted+uniqued
 def makeEntityList(data,field):
     names = []
     for d in data:
@@ -103,13 +110,16 @@ def checkPleiades(data,names,surrogates):
 
     return out
     pass
-def makeSurrogates(entBundle):
-    pass
+
+pleiad = getNames(namesfile);
+data = getData(datafile);
 ents = makeEntityBundle(data,'fabric')
 surrogates = getSurrogates(surrogatefile);
-#print surrogates
+
 checked = checkPleiades(ents,pleiad,surrogates)
 
+
+# create a csv file for use with convert2n3.py
 print  "record,token,surrogate,guid"
 for c in checked:
     print c[0] + "," + c[1] + "," + c[2] + "," + c[3] 
