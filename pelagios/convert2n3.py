@@ -39,7 +39,7 @@ record = '''
 <http://uredb.reading.ac.uk/ure/n3/uredb.n3#$accnum> a pelagios:AnnotatedThing ;
   dcterms:title "$title" ;
   dcterms:identifier <http://uredb.reading.ac.uk/record/$accnum> ;
-  foaf:homepage <http://uredb.reading.ac.uk/cgi-bin/ure/uredb.cgi> ;
+  foaf:homepage <http://uredb.reading.ac.uk/cgi-bin/ure/uredb.cgi?accnum=$accnum> ;
   dcterms:description "$description" ;
 .
 '''
@@ -90,14 +90,15 @@ for d in uredata:
         title = d[1].replace('\n', ' ').replace('\r', '').replace('\\','')
     if (len(d) > 2):
         description = d[2].replace('\n', ' ').replace('\r', ' ').replace('\\"','').replace('\\','')
-    print fillInRecord(rec,title,description,accnum)
+
 
     if (accnum in places):
-          i = 0
-          for place in places[accnum]:
-                i = i + 1
-
-                print ann.safe_substitute(ann=i,accnum=accnum,placesid=place['guid'],agent="bcf",date=thisdate)
+        print fillInRecord(rec,title,description,accnum)
+        i = 0
+        for place in places[accnum]:
+            i = i + 1
+            
+            print ann.safe_substitute(ann=i,accnum=accnum,placesid=place['guid'],agent="bcf",date=thisdate)
 
 
 
