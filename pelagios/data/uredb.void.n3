@@ -1,0 +1,13 @@
+@prefix : <http://uredb.reading.ac.uk/ure/> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+: a void:Dataset ;
+    dcterms:title "Ure Museum Database" ;
+    dcterms:publisher "Ure Museum, University of Reading" ;
+    dcterms:license <http://opendatacommons.org/licenses/odbl/1.0/> ;
+    dcterms:description "The Ure Museum collections contain  material from the Greek and Greco-Roman civilisations of the Mediterranean, most notably Greek and Etruscan ceramics and terracottas." ;
+    foaf:homepage <https://www.reading.ac.uk/Ure/> ;
+    void:dataDump <http://uredb.reading.ac.uk/ure/n3/uredb.n3> ;
+.
