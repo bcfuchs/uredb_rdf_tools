@@ -54,6 +54,7 @@ caption = '''
 <$uri> a foaf:Image ;
   dcterms:title "$cap" ;
   dcterms:license <http://creativecommons.org/licenses/by-sa/3.0/> ;
+  $thumb
 .
 '''
 
@@ -126,8 +127,8 @@ for d in uredata:
         m = media[accnum]
         small = image_t.safe_substitute(uri=m['small'])
         thumb = thumb_t.safe_substitute(uri=m['thumb'])
-        caps = cap.safe_substitute(uri=m['thumb'],cap=m['cap'])
-        ims = small + "\n  " + thumb
+        caps = cap.safe_substitute(uri=m['small'],cap=m['cap'],thumb=thumb)
+        ims = small
 
     if (len(d) > 1):
         title = d[1].replace('\n', ' ').replace('\r', '').replace('\\','')
