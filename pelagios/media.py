@@ -1,7 +1,9 @@
 import csv
-accnum_id = "data/private/uremeta_accnum_id.tsv"
-media_id_file = "data/private/uremeta_media.tsv"
-mediafile = "data/private/media.tsv"
+import sys
+
+accnum_id = sys.argv[1]     # "data/private/uremeta_accnum_id.tsv"
+media_id_file = sys.argv[2] # "data/private/uremeta_media.tsv"
+mediafile = sys.argv[3]     # "data/private/media.tsv"
 
 
 '''
