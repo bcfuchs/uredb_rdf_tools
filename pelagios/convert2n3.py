@@ -24,6 +24,8 @@ preface = '''@prefix cnt: <http://www.w3.org/2011/content#> .
 @prefix oa: <http://www.w3.org/ns/oa#> .
 @prefix pelagios: <http://pelagios.github.io/vocab/terms#> .
 @prefix relations: <http://pelagios.github.io/vocab/relations#> .
+@prefix ure: <http://uredb.reading.ac.uk/vocab/terms#> .
+@prefix ure-relations: <http://uredb.reading.ac.uk/vocab/relations#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema> .
 
 <http:///http://uredb.reading.ac.uk/ure/n3/uredb.n3#agents/bcf> a foaf:Person ;
@@ -36,7 +38,7 @@ annotation = '''
 <http://uredb.reading.ac.uk/ure/n3/uredb.n3#$accnum/annotations/$ann> a oa:Annotation ;
  oa:hasTarget <http://uredb.reading.ac.uk/ure/n3/uredb.n3#$accnum> ;
  oa:hasBody <http://pleiades.stoa.org/places/$placesid> ;
- pelagios:relation relations:foundAt ;
+ ure:relation  ure-relations:originatesAt ;
  oa:annotatedBy <http://uredb.reading.ac.uk/ure/n3/uredb.n3#agents/$agent> ;
  oa:annotatedAt "$date"^^xsd:date ;
 .
