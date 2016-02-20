@@ -8,4 +8,9 @@ To re-run,
    sh run.sh
    ```
 
-You may need to install rdflib
+You may need to install rdflib first
+
+
+   ```sh
+   pip install rdflib
+   ```
