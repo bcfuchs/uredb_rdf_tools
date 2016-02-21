@@ -1,6 +1,7 @@
 echo "creating pleiades name matches..."
 python named_entity_id.py   > data/ure_pleiades_matches.csv
-
+echo "creating date file.."
+python make_dates.py > data/ure_dates.csv
 echo "making media list..."
 python media.py "data/private/uremeta_accnum_id.tsv" \
     "data/private/uremeta_media.tsv"  \
