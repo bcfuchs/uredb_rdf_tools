@@ -85,9 +85,10 @@
 			var pos = $(this).position();
 			var width = $(this).outerWidth();
 
+
 			$("#map").css({
 			    position: "absolute",
-			    top: pos.top + "px",
+			    top: (pos.top - 200)  + "px",
 			    left: (pos.left + width) + "px",
 			    width: "300px",
 			    height: "200px"
@@ -130,18 +131,18 @@
 	    
 	    console.log(pid);
 
-	    $(row).find("td.name-f").html(namef);
-	    $(row).find("td.name-c").html(namec);
+
 
 	    if (ples) {
-
+		$(row).find("td.name-f").html(namef);
+		$(row).find("td.name-c").html(namec);
 		$(row).find("td.pleiades-c").data("pleiades",ples);
-	    }
-	    var out = 	    $(row).find("td.pleiades-c").data("pid");
-	    
-	    $("#templatebody").append(row);
-	    $(row).show();
 
+	   
+	    
+		$("#templatebody").append(row);
+		$(row).show();
+	    }
 	}
 	$('[data-toggle="popover"]').popover()
     }
