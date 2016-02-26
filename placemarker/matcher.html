@@ -72,7 +72,7 @@
 	</div> <!-- #screen1 -->
 	<div class="mypanel" id="screen2">
 	  <h3>Load a gazetteer</h3>
-	  <button id="load-topos" class="btn btn-primary " >Load a topos file</button>
+	  <button id="load-topos" class="btn btn-primary " >Load a names  file</button>
 	  <input style="display: none" type="file" id="topos-file" name="topos-file" />
 	  <div class="message"></div>
 	</div>  
@@ -88,18 +88,21 @@
 		<th>Pleiades</th>
 	      </tr>
 	    </thead>
-	    <tbody id="templatebody">
-	      <tr id="templaterow" class="hideme">
-		<td class="name-f"></td>
-		<td class="name-c"></td>
-		<td class="pleiades-c"></td>
-	      </tr>
+	    <tbody id="place-templatebody">
+
 	    </tbody>
 	  </table>
 
 
 	</div>
+	<div class="mypanel" id="screen4">
+	  <h3>Load your database file</h3>
+	  <button id="load-db" class="btn btn-primary " >Load a db file</button>
+	  <input style="display: none" type="file" id="db-file" name="db-file" />
+	  <div class="message">hi</div>
+	</div>  
       </div>
+      
 
     </div><!-- /.container -->
 
@@ -113,7 +116,14 @@
 	 
 				data-content="">
 	            
-	</span>
+      </span>
+      <table>
+	      <tr id="templaterow" class="hideme">
+		<td class="name-f"></td>
+		<td class="name-c"></td>
+		<td class="pleiades-c"></td>
+	      </tr>
+      </table>
     </div>
 
 
@@ -156,10 +166,12 @@
       }
     </style>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo= sha512-2e8qq0ETcfWRI4HJBzQiA3UoyFk6tbNyG+qSaIBZLyW9Xf3sWZHN/lxe9fTh1U45DpPf07yj94KsUHHWe4Yk1A==" crossorigin="anonymous"></script>
-    <script src="js/pleiades.js"></script>
-    <script src="js/pleiades_matcher.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js"></script>
     <script src="js/gmaps.js"></script>
+    <script src="js/vendor/jquery-storage-api/jquery.storageapi.js"></script>
+    <script src="js/pleiades.js"></script>
+    <script src="js/pleiades_matcher.js"></script>
+    
   </body>
 
 </html>
