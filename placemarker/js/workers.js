@@ -2,17 +2,11 @@
  * Quick MR example using workers
  * Note: data is copied!
  */
+! function() {
+    var runWorkers = function (data,mapper,numberWorkers,reducer)  {
+    var ar, max, workerF;
 
-var numWorkers = 1;
-var datapointsMax = 1000000
-var maxWorkers = 100;
-var doRun;
-doRun = function(nw, maxI,maxRuns) {
-    var ar, numberWorkers, max, workerF;
-    var numberWorkers = nw;
-    var ar = [];
-    var max = maxI;
-
+/**
     var workerF = function(e) {
 	console.log(e.data.id)
 	var data = e.data.data;
@@ -22,31 +16,30 @@ doRun = function(nw, maxI,maxRuns) {
 	self.postMessage(out)
 
     }
+*/
 
-    var worker = makeWorker(workerF)
+	//    var mapper = makeWorker(workerF)
 
-    // make some data
-    for (var i = 0; i < max; i++) {
-	ar.push(i)
-    }
-    // function to call after workers finish
+
+/**
+//   sample function to  call in reduce stage
     var reducer = function(d) {
 
 	var tot = d.reduce(function(p, c) {
 	    return p + c;
-
 	})
 
 	if (nw < maxRuns) {
 	    doRun(nw+2,max,maxRuns)
 	}
     }
-
-
-    parallelize(ar, worker, numberWorkers, reducer);
+*/
+    	
+	parallelize(data, mapper, numberWorkers, reducer);
 }
 
-doRun(numWorkers,datapointsMax,maxWorkers)
+
+
 function makeWorker(f) {
 
     // variables need to be evaluated here for Blob
@@ -122,3 +115,7 @@ function log(m) {
     console.log(m);
 
 }
+    window.parallelize = runWorkers
+    window.makeWorker = function(f) { return makeWorker(f)}
+    
+} ()
