@@ -56,28 +56,23 @@ function makeWorker(f) {
 * each worker increments a function
   when the function reaches numberWorkers, it evals the callback with resultQueue as parameter
 */
-function parallelize(data, worker, nSlices, callback) {
+function parallelize(data, worker, numWorkers, callback) {
     var reg, slices, start, max, t0, t1,nWorkers,dataSize;
     start = 0
-    slices = get_slices(data, nSlices);
-    max = slices.length
-    dataSize = data.length
-
+    slices = get_slices(data, numWorkers);
+    max = slices.length;
+    dataSize = data.length;
     nWorkers = slices.length;
-
-    console.log("data" + slices.length)
+    console.log("creating  " + slices.length + " workers")
     var resultQueue = []
     reg = function(s) {
 	start += 1
 	if (start === max) {
-	    console.log("res: " + resultQueue.length)
-	    log(nWorkers+"\t" + dataSize + "\t" + (Date.now() - t0))
 	    callback(resultQueue);
 	}
-
     }
-    t0 = Date.now();
-    for (var i = 0; i < slices.length; i++) {
+
+    for (var i = 0; i < max; i++) {
 	var proc = new Worker(worker);
 	proc.postMessage({
 	    data: slices[i],
@@ -101,7 +96,6 @@ function get_slices(ar, n) {
 	if (i % div === 0) {
 	    out.push(sl);
 	    sl = [];
-	    console.log(i);
 	}
 
     }
@@ -109,11 +103,6 @@ function get_slices(ar, n) {
 	out.push(sl)
     }
     return out
-}
-
-function log(m) {
-    console.log(m);
-
 }
     window.parallelize = runWorkers
     window.makeWorker = function(f) { return makeWorker(f)}

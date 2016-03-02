@@ -8,6 +8,15 @@
     storage = $.localStorage;
     names = Object.keys(pleiades_names).join('|').toLowerCase().split('|'); // loaded before this in matcher.html
 
+    // set up an event queue to process worker stuff
+
+    var signal = 'row_process';
+    var event_queue = [];
+    $(window).on(signal, function (e, d) {
+	event_queue.push(d);
+	
+    });
+    
     if(typeof(Worker) !== "undefined") {
 	hasWorkers = true;
     } 
@@ -29,10 +38,12 @@
 
 	});
 
-	extract_names(storage.get('db'))
+	$("#run").click(function(){
+	    extract_names(storage.get('db'))
+	});
     }
     
-    function load_topos_from_csv(e) {
+   function load_topos_from_csv(e) {
 
 
 	var file = e.target.files[0];
@@ -66,13 +77,14 @@
 	// get NE candidates
 	// match tri-/bigrams against pleiades file
 	// single tokens
-	var max, out,pile;
+	var max, out,pile,theRows;
 	max = 2500;
 	out = {}
 	pile = []
+	theRows =[]
 	$("#screen4 .message").html("going to process " + max + " lines...");
 	
-	var row_process = new Worker('js/process_row.js');
+
 	for (var i = 0; i < max; i++) {
 	    row = data[i]
 	    if (i % 100 === 0 ) {
@@ -80,33 +92,82 @@
 		console.log(i)
 	    }
 	    // skip rows without a-z
-
+	    
 	    if (row.join().match(/[a-zA-Z]/)) {
-		row_process.postMessage(row)
-		row_process.onmessage = function(e) {
-		    console.log(e.data)
-		    pile.push(e.data);
-		    console.log('Message received from worker');
-		    }
+		theRows.push(row)
 		
-		//		pile.push(process_row(row))
-	    }
-	}
-	for (var i = 0; i < pile.length; i++) {
-	    var g = pile[i];
-	    for (var word in g) {
-		if (!(out[word])){
-		    out[word] = g[word]
-			
-		}
-	    }
 
+//		pile.push(process_row(row))
+	    }
 	}
+	var reducer = function(pile) {
+	    var out = {}
+	    
+	    console.log("reducing...");
+	    console.log("pile : " + pile.length);
+
+	    for (var i = 0; i < pile.length; i++) {
+		var g = pile[i];
+
+		for (var j in g) {
+		    var word = g[j]
+		    if (!(out[word])){
+			out[word] = g[j]
+			
+		    }
+		}
+		
+	    }
+	    
+	    // add to table here
+	    var names = Object.keys(out).sort();
+	    var t = [];
+	    for (var i = 0; i < names.length; i++) {
+		t.push([names[i],names[i]])
+	    }
+	    load_topos_into_table(t)
+	}
+	parallelize(theRows,"js/process_row.js",20,reducer);
 //	storage.set('db',data); // might exceed localstorage limit
-	console.log(out)
-	return out
+	
 	
     }
+    
+    // parallelize data processing then use data in callback when all workers finish
+    function parallelize_local(data,worker,nSlices,callback) {
+	var reg,slices;
+	reg = {}
+	slices = get_slices(data,nSlices);
+	for (var i = 0; i < slices.size; i++) {
+	    var proc = new Worker(worker);
+	    proc.postMessage(slices[i])
+	    proc.on_message = {
+		
+	    }
+	}
+
+    }
+
+    function get_slices(ar,n) {
+	var out,sl,div;
+	div = Math.floor(ar.length / n);
+	out =[]
+	sl = [];
+	for (var i = 0; i < ar.length; i++) {
+	    sl.push(ar[i]);
+	    if (i % div  === 0 ) {
+		out.push(sl);
+		sl = [];
+		console.log(i);
+	    }
+
+	}
+	if (sl.length > 0) {
+	    out.push(sl)
+	}
+	return out
+    }
+
     function process_row(row) {
 	var out = {}
 
@@ -165,7 +226,7 @@
 	}
 
     }
-
+    
     function load_topos_into_table(ar) {
 	console.log("load")
 
