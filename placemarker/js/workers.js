@@ -1,5 +1,5 @@
 /**
- * Simple  MapReduce example using workers and transferable objects, no exception handling
+ * Simple  MapReduce example using webworkers and transferable objects, no exception handling
  * 
  * split an array into n slices
  * create a worker for each, convert code to dataUrl if needed.
@@ -20,6 +20,8 @@
     }
 
 
+
+
 // serialize the code if needed
 function makeWorker(f) {
 
@@ -36,7 +38,7 @@ function makeWorker(f) {
 // parallelize data processing then use data in callback when all workers finish
 /**
 * each worker increments a function
-  when the function reaches numberWorkers, it evals the callback with resultQueue as parameter
+  when the function reaches numberWorkers, it invokes  the callback with resultQueue as parameter
 */
 function parallelize(data, worker, numWorkers, callback) {
     var reg, slices, start, max, t0, t1,nWorkers,dataSize;
