@@ -1,45 +1,26 @@
 /**
- * Quick MR example using workers
- * Note: data is copied!
+ * Simple  MapReduce example using workers and transferable objects, no exception handling
+ * 
+ * split an array into n slices
+ * create a worker for each, convert code to dataUrl if needed.
+ * transfer data to worker via json serialisation and arraybuffer
+ * process results in a reducer stage
+ * mapper  must implement arbuf <->obj and postMessage
+ * 
+ * parallelize([1,2,3],mapper,5,reducer)
+ *    
+ * TODO: 
+ * 
  */
 ! function() {
-    var runWorkers = function (data,mapper,numberWorkers,reducer)  {
-    var ar, max, workerF;
-
-/**
-    var workerF = function(e) {
-	console.log(e.data.id)
-	var data = e.data.data;
-	var out = data.reduce(function(p, c) {
-	    return p + Math.sqrt(c)
-	});
-	self.postMessage(out)
-
-    }
-*/
-
-	//    var mapper = makeWorker(workerF)
-
-
-/**
-//   sample function to  call in reduce stage
-    var reducer = function(d) {
-
-	var tot = d.reduce(function(p, c) {
-	    return p + c;
-	})
-
-	if (nw < maxRuns) {
-	    doRun(nw+2,max,maxRuns)
-	}
-    }
-*/
+    // public for export
+    var runWorkers = function (data,mapper,numberWorkers,reducer)  {	
     	
 	parallelize(data, mapper, numberWorkers, reducer);
-}
+    }
 
 
-
+// serialize the code if needed
 function makeWorker(f) {
 
     // variables need to be evaluated here for Blob
@@ -51,6 +32,7 @@ function makeWorker(f) {
     return blobURL = window.URL.createObjectURL(blob);
 
 }
+    
 // parallelize data processing then use data in callback when all workers finish
 /**
 * each worker increments a function
@@ -71,21 +53,31 @@ function parallelize(data, worker, numWorkers, callback) {
 	    callback(resultQueue);
 	}
     }
+    
+    var rec = function(e) {
+	var res = ab2obj(e.data)
+	resultQueue.push(res)
+	reg(1)
+    }
 
-    for (var i = 0; i < max; i++) {
-	var proc = new Worker(worker);
-	proc.postMessage({
+for (var i = 0; i < max; i++) {
+// obj2ab
+	var msg  =     {
 	    data: slices[i],
 	    id: i
-	})
-	proc.addEventListener('message', function(e) {
-	    resultQueue.push(e.data)
-	    reg(1)
-	})
-    }
+	}
+// transferable object for zero-length copying to worker
+    var ab = obj2ab(msg);
+    var proc = new Worker(worker);
+    proc.postMessage(ab,[ab.buffer])
+    proc.addEventListener('message',rec)
 
 }
 
+}
+    // split up the arr by number of workers requested
+    // NOTE: no worker pool
+    
 function get_slices(ar, n) {
     var out, sl, div;
     div = Math.floor(ar.length / n);
@@ -104,7 +96,25 @@ function get_slices(ar, n) {
     }
     return out
 }
+/** convert between Object and ArrayBuffer */
+    function obj2ab(obj) {
+
+	var enc = new TextEncoder();
+	var bin = enc.encode(JSON.stringify(obj))
+	return bin
+
+    }
+    function ab2obj(ab) {
+
+	var dec = new TextDecoder();
+	var out = dec.decode(ab);
+	return JSON.parse(out)
+
+
+    }
+
     window.parallelize = runWorkers
     window.makeWorker = function(f) { return makeWorker(f)}
     
+
 } ()

@@ -77,11 +77,12 @@
 	// get NE candidates
 	// match tri-/bigrams against pleiades file
 	// single tokens
-	var max, out,pile,theRows;
+	var max, out,pile,theRows,numWorkers;
 	max = 2500;
-	out = {}
-	pile = []
-	theRows =[]
+	numWorkers = 30;
+	out = {};
+	pile = [];
+	theRows =[];
 	$("#screen4 .message").html("going to process " + max + " lines...");
 	
 
@@ -127,8 +128,9 @@
 	    }
 	    load_topos_into_table(t)
 	}
-	parallelize(theRows,"js/process_row.js",20,reducer);
-//	storage.set('db',data); // might exceed localstorage limit
+	storage.set('db',data); // might exceed localstorage limit
+	parallelize(theRows,"js/process_row.js",numWorkers,reducer);
+
 	
 	
     }
@@ -228,7 +230,14 @@
     }
     
     function load_topos_into_table(ar) {
-	console.log("load")
+	$(document).data('pids',{});
+	var save_pid = function(pid,name) {
+	    var pids = $(document).data('pids')
+	    pids[name] = pid
+	    $(document).data('pids',pids)
+	    
+
+	}
 
 	$("#place-templatebody row").remove();
 	for (var i = 0;i < ar.length; i++) {
@@ -248,12 +257,34 @@
 		    var lng = parseFloat(item['reprLong'])
 		    var title = item['title'];
 		    
-		    var sp = $("<span class='pid-span' id='pid_"+i+"_"+j+"'>"+pid+"</span>")
+		    var sp = $("<button class='btn btn-primary pid-span' data-pid-group='pid_"
+			       +i
+			       +"' data-pid='"+pid+"' id='pid_"+i+"_"+j
+			       +"' "
+			       +"data-pid-name='"
+			       +namec
+			       +"'>"
+			       +pid
+			       +"</button>")
 		    sp.data('latlon',[lat,lng,title]);
 		    console.log(lat);
 		    console.log(lng);
 		    console.log(title);
+		    // choose this one
+		    // hide the other in the row
+		    // change its colour
 		    
+		    sp.click(function() {
+			var pidgroup = $(this).attr('data-pid-group');
+			var pid = $(this).attr('data-pid');
+			var name = $(this).attr('data-pid-name');
+			$("[data-pid-group='"+pidgroup+"']").hide();
+			
+			$(this).removeClass('btn-primary').addClass('btn-success').show().off();
+
+			// save this pid to document with the name
+			save_pid(pid,name);
+		    })
 		    sp.hover(function(){
 			$("#map").html("");
 			var pos = $(this).position();
