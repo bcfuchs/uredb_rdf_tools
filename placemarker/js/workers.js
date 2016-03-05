@@ -9,7 +9,7 @@
  * 
  * parallelize([1,2,3],mapper,5,reducer)
  *    
- https://jsfiddle.net/asynch5/35yy97ho/2/
+ https://jsfiddle.net/asynch5/35yy97ho/3/
  * TODO: 
  *  -lots
  */
