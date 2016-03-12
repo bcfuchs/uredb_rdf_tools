@@ -50,7 +50,7 @@ Bosporan,Bosporus
 Bottiaean,Bottiaea
 British,Britain
 Bruttian,Bruttium
-Byblian,Byblus,
+Byblian,Byblus
 Byzantine,Byzantium
 Cadmean,Thebes
 Calabrian,Calabria
@@ -68,7 +68,6 @@ Carystian,Carystus
 Caspian,Caspium
 Catalan,Catalonia
 Catalonian,Catalonia
-Caunian,Caunus
 Caunian,Caunus
 Cean,Ceos
 Cecropian,Athenian
@@ -124,14 +123,12 @@ Eleusian,Eleusis
 Eleusinian,Eleusis
 Elian,Eleia
 Ephesian,Ephesus
-Ephesian,Ephesus
 Ephyrians,Ephyra
 Epidamnian,Epidamnos
 Epidaurian,Epidaurus
 Epirote,Epirus
 Eretrian,Eretria
 Ethiopian,Ethiopia
-Etruscan,Etruria
 Etruscan,Etruria
 Euboean,Euboea
 Galatian,Galatia
@@ -158,7 +155,6 @@ Kalymnian,Kalymnos
 Kasnit,Kasnit
 Kaulonian,Kaulonia
 Knossian,Knossos
-Knossian,Knossos
 Labdacean,Labdacus
 Laconian,Laconia
 Lakedaemonian,Lakedaemon 
@@ -172,17 +168,13 @@ Lemnian,Lemnos
 Leontine,Leontini
 Leontinian,Leontium
 Lesbian,Lesbos
-Lesbian,Lesbos
 Leucadian,Leucas
 Liburnian,Liburnia
 Libyan,Libya
 Ligurian,Liguria
 Locrian,Locris
 Lucanian,Lucania
-Lycian,Lycia,
 Lycian,Lycia
-Lycian-born,
-Lydian,Lydia
 Lydian,Lydia
 Macedonian,Macedonia
 Maeonian,Maeonia
@@ -207,25 +199,21 @@ Metapontine,Metapontum
 Methymnian,Methymna
 Milesian,Miletus
 Minoan,Minos
-Minturnaean,Minturnae,
+Minturnaean,Minturnae
 Molossian,Molossia
 Moravian,Moravia
-Mount Maenalus,
 Mycenaean,Mycenae
 Mylean,Mylae
 Mysian,Mysia
 Mytilenean,Mytilene
-Mytilenean,Mytilene
 Naucratite,Naucratis
 Naupactian,Naupactus
-Naxian,Naxos
 Naxian,Naxos
 Nemean,Nemea
 Nisyrian,Nisyros
 North African,Africa
 North Italian,North Italy
 Nubian,Nubia
-Nysaean,Nysa
 Nysaean,Nysa
 Nysean,Nysa
 Oean,Oea
@@ -252,9 +240,8 @@ Phliasian,Phlius
 Phocian,Phocis
 Phoenician,Phoenicia
 Phrygian,Phrygia
-Phrygian,Phrygia,
 Phthian,Phthia
-Pisan,Pisa,
+Pisan,Pisa
 Pisidian,Pisidia
 Plataean,Plataea
 Pleuronian,Pleuron
@@ -274,7 +261,6 @@ Romanian,Romania
 Romano-Egyptian,Egypt
 Sabine,Sabinium
 Salaminian,Salamis
-Salaminian,Salamis
 Salmydessian,Salmydessus
 Samian,Samos
 Samnite,Samnium
@@ -282,7 +268,7 @@ Samothracian,Samothrace
 Sardian,Sardis
 Sardinian,Sardinia
 Sarmatian,Sarmatia
-Scionian,Scione,
+Scionian,Scione
 Scythian,Scythia
 Seleucean,Seleucus
 Selinuntean,Selinunte
@@ -290,7 +276,6 @@ Serrean,Serrhae
 Sicilian,Sicily
 Sicyonese,Sicyon
 Sicyonian,Sicyon
-Sidonian,Sidon
 Sidonian,Sidon
 Silesian,Silesia
 Siphnian,Siphnos
@@ -310,7 +295,6 @@ Tarentine,Taras
 Tarentumian,Taras
 Tegean,Tegea
 Tenedian,Tenedos
-Thasian,Thasos
 Thasian,Thasos
 Theban,Thebes
 Thespian,Thespis

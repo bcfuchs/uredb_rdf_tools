@@ -25,11 +25,13 @@ uremeta = getTSVDict(ure_file,'accession_number');
 
 out = {}
 for id in uremeta:
-    words =  uremeta[id]['provenience'].split();
-    for w in words:
-        out[w] =""
+    words =  uremeta[id]['provenience']
+    if (len(words) > 1):
+        out[words] = ""
+
     
 pass
 
-for w in out:
-    print w+"," + w
+for words in out:
+    
+    print words + '\t' + words
